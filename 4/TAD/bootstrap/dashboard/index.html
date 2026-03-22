@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Sistemas Conectados</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
+    <link rel="stylesheet" href="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <button class="btn btn-outline-light me-2" id="sidebarToggle">
+                <i class="bi bi-list"></i>
+            </button>
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-router me-2" style="font-size: 1.5rem;"></i>
+                NetMonitor
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#overview">Resumen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#devices">Dispositivos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#performance">Rendimiento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#logs">Logs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#settings">Configuración</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#overview">
+                                <i class="bi bi-house-door me-2"></i>
+                                Resumen
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#devices">
+                                <i class="bi bi-device-hdd me-2"></i>
+                                Dispositivos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#performance">
+                                <i class="bi bi-graph-up me-2"></i>
+                                Rendimiento
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#logs">
+                                <i class="bi bi-journal-text me-2"></i>
+                                Logs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#settings">
+                                <i class="bi bi-gear me-2"></i>
+                                Configuración
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Overview Section -->
+                <div id="overview" class="section">
+                    <h2>Resumen de la Red</h2>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-router text-primary" style="font-size: 2rem;"></i>
+                                    <h5 class="card-title">Dispositivos Conectados</h5>
+                                    <p class="card-text display-4" id="connectedDevices">24</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-speedometer2 text-success" style="font-size: 2rem;"></i>
+                                    <h5 class="card-title">Ancho de Banda Usado</h5>
+                                    <p class="card-text display-4" id="bandwidthUsage">67%</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-exclamation-triangle text-warning" style="font-size: 2rem;"></i>
+                                    <h5 class="card-title">Alertas Activas</h5>
+                                    <p class="card-text display-4" id="activeAlerts">3</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <i class="bi bi-wifi text-info" style="font-size: 2rem;"></i>
+                                    <h5 class="card-title">Velocidad Promedio</h5>
+                                    <p class="card-text display-4" id="averageSpeed">85 Mbps</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Devices Section -->
+                <div id="devices" class="section">
+                    <h2>Dispositivos Conectados</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>IP</th>
+                                <th>Estado</th>
+                                <th>Última Actividad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Router Principal</td>
+                                <td>192.168.1.1</td>
+                                <td><i class="bi bi-check-circle text-success"></i> Conectado</td>
+                                <td>Hace 2 min</td>
+                                <td><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#deviceModal"><i class="bi bi-gear"></i> Configurar</button></td>
+                            </tr>
+                            <tr>
+                                <td>PC Oficina</td>
+                                <td>192.168.1.10</td>
+                                <td><i class="bi bi-check-circle text-success"></i> Conectado</td>
+                                <td>Hace 5 min</td>
+                                <td><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#deviceModal"><i class="bi bi-gear"></i> Configurar</button></td>
+                            </tr>
+                            <tr>
+                                <td>Servidor Web</td>
+                                <td>192.168.1.20</td>
+                                <td><i class="bi bi-exclamation-triangle text-warning"></i> Advertencia</td>
+                                <td>Hace 1 hora</td>
+                                <td><button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#deviceModal"><i class="bi bi-gear"></i> Configurar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Performance Section -->
+                <div id="performance" class="section">
+                    <h2>Rendimiento de la Red</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Uso de CPU</h4>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Uso de Memoria</h4>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">60%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <h4>Gráfico de Tráfico (Simple)</h4>
+                            <svg width="100%" height="200" viewBox="0 0 400 200">
+                                <rect x="0" y="150" width="50" height="50" fill="#007bff"></rect>
+                                <rect x="60" y="120" width="50" height="80" fill="#007bff"></rect>
+                                <rect x="120" y="100" width="50" height="100" fill="#007bff"></rect>
+                                <rect x="180" y="80" width="50" height="120" fill="#007bff"></rect>
+                                <rect x="240" y="60" width="50" height="140" fill="#007bff"></rect>
+                                <rect x="300" y="40" width="50" height="160" fill="#007bff"></rect>
+                                <rect x="360" y="20" width="50" height="180" fill="#007bff"></rect>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logs Section -->
+                <div id="logs" class="section">
+                    <h2>Logs del Sistema</h2>
+                    <div class="accordion" id="logsAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Log de Hoy
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#logsAccordion">
+                                <div class="accordion-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">10:00 - Dispositivo conectado: PC Oficina</li>
+                                        <li class="list-group-item">11:30 - Alerta: Alto uso de ancho de banda</li>
+                                        <li class="list-group-item">14:15 - Dispositivo desconectado: Impresora</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Log de Ayer
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#logsAccordion">
+                                <div class="accordion-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">09:00 - Sistema iniciado</li>
+                                        <li class="list-group-item">12:00 - Backup completado</li>
+                                        <li class="list-group-item">18:00 - Mantenimiento programado</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div id="settings" class="section">
+                    <h2>Configuración</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label for="networkName" class="form-label">Nombre de la Red</label>
+                            <input type="text" class="form-control" id="networkName" value="Red Corporativa">
+                        </div>
+                        <div class="mb-3">
+                            <label for="securityLevel" class="form-label">Nivel de Seguridad</label>
+                            <select class="form-select" id="securityLevel">
+                                <option selected>Bajo</option>
+                                <option>Medio</option>
+                                <option>Alto</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal para Configuración de Dispositivo -->
+    <div class="modal fade" id="deviceModal" tabindex="-1" aria-labelledby="deviceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deviceModalLabel">Configurar Dispositivo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="deviceName" class="form-label">Nombre del Dispositivo</label>
+                            <input type="text" class="form-control" id="deviceName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deviceIP" class="form-label">Dirección IP</label>
+                            <input type="text" class="form-control" id="deviceIP">
+                        </div>
+                        <div class="mb-3">
+                            <label for="deviceStatus" class="form-label">Estado</label>
+                            <select class="form-select" id="deviceStatus">
+                                <option>Conectado</option>
+                                <option>Desconectado</option>
+                                <option>Advertencia</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../bootstrap-5.3.8-dist/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
